@@ -1,7 +1,7 @@
 env:
   global:
     - CONAN_REFERENCE: "VTK/8.0.1"
-    - CONAN_USERNAME: "bilke"
+    - CONAN_USERNAME: "ragnarok"
     - CONAN_LOGIN_USERNAME: "jenkins"
     - CONAN_CHANNEL: "testing"
     - CONAN_UPLOAD: "https://ogs.jfrog.io/ogs/api/conan/conan"

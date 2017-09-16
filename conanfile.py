@@ -14,7 +14,7 @@ class VTKConan(ConanFile):
     options = {"shared": [True, False], "qt": [True, False], "mpi": [True, False], "fPIC": [True, False],}
     default_options = "shared=False", "qt=False", "mpi=False", "fPIC=False"
     exports = ["CMakeLists.txt", "FindVTK.cmake"]
-    url="http://github.com/bilke/conan-vtk"
+    url="http://github.com/cinderblocks/conan-vtk"
     license="http://www.vtk.org/licensing/"
     short_paths=True
 
@@ -26,7 +26,7 @@ class VTKConan(ConanFile):
 
     def requirements(self):
         if self.options.qt == True:
-            self.requires("Qt/5.6.1-1@osechet/testing")
+            self.requires("Qt/5.9.1@ragnarok/stable")
 
     def system_requirements(self):
         pack_names = None

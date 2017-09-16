@@ -2,7 +2,7 @@ from conans import ConanFile, CMake
 import os
 
 channel = os.getenv("CONAN_CHANNEL", "testing")
-username = os.getenv("CONAN_USERNAME", "bilke")
+username = os.getenv("CONAN_USERNAME", "ragnarok")
 
 class VTKReuseConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
