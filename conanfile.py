@@ -26,7 +26,7 @@ class VTKConan(ConanFile):
 
     def requirements(self):
         if self.options.qt == True:
-            self.requires("Qt/5.9.1@ragnarok/stable")
+            self.requires("Qt/5.9.1@slidewave/stable")
 
     def system_requirements(self):
         pack_names = None
@@ -77,6 +77,14 @@ class VTKConan(ConanFile):
 
         cmake.configure(build_dir="build")
         cmake.build(target="install")
+
+    def package(self):
+        self.copy("*.h", dst="include", src="src")
+        self.copy("*.lib", dst="lib", keep_path=False)
+        self.copy("*.dll", dst="lib", keep_path=False)
+        self.copy("*.dylib*", dst="lib", keep_path=False)
+        self.copy("*.so", dst="lib", keep_path=False)
+        self.copy("*.a", dst="lib", keep_path=False)
 
     def package_info(self):
         LIB_POSTFIX = ""
@@ -164,7 +172,7 @@ class VTKConan(ConanFile):
             "vtkjsoncpp-%s" % self.short_version + LIB_POSTFIX,
             "vtklibxml2-%s" % self.short_version + LIB_POSTFIX,
             "vtkmetaio-%s" % self.short_version + LIB_POSTFIX,
-            "vtkNetCDF_cxx-%s" % self.short_version + LIB_POSTFIX,
+            "vtkNetCDF_c++%s" % LIB_POSTFIX,
             "vtkNetCDF-%s" % self.short_version + LIB_POSTFIX,
             "vtkoggtheora-%s" % self.short_version + LIB_POSTFIX,
             "vtkParallelCore-%s" % self.short_version + LIB_POSTFIX,
