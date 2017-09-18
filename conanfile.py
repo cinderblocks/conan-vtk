@@ -11,8 +11,13 @@ class VTKConan(ConanFile):
     SHORT_VERSION = short_version
     generators = "cmake"
     settings = "os", "compiler", "build_type", "arch"
-    options = {"shared": [True, False], "qt": [True, False], "mpi": [True, False], "fPIC": [True, False],}
-    default_options = "shared=False", "qt=False", "mpi=False", "fPIC=False"
+    options = {
+        "shared": [True, False], 
+        "qt": [True, False], 
+        "system_qt": [True, False],
+        "mpi": [True, False],
+        "fPIC": [True, False],}
+    default_options = "shared=False", "qt=False", "system_qt=False", "mpi=False", "fPIC=False"
     exports = ["CMakeLists.txt", "FindVTK.cmake"]
     url="http://github.com/cinderblocks/conan-vtk"
     license="http://www.vtk.org/licensing/"
@@ -61,10 +66,12 @@ class VTKConan(ConanFile):
         cmake.definitions["BUILD_EXAMPLES"] = "OFF"
         if self.options.shared == False:
             cmake.definitions["BUILD_SHARED_LIBS"] = "OFF"
-        if self.options.qt == True:
+        if self.options.qt == True or self.options.system_qt == True:
             cmake.definitions["VTK_Group_Qt"] = "ON"
             cmake.definitions["VTK_QT_VERSION"] = "5"
             cmake.definitions["VTK_BUILD_QT_DESIGNER_PLUGIN"] = "OFF"
+            cmake.definitions["QT_QMAKE_EXECUTABLE"] = "F:/Developer/Qt/5.9.1/msvc2017_64/bin/qmake"
+            cmake.definitions["CMAKE_PREFIX_PATH"] = "F:/Developer/Qt/5.9.1/msvc2017_64/lib/cmake"
         if self.options.mpi == True:
             cmake.definitions["VTK_Group_MPI"] = "ON"
 
@@ -198,7 +205,7 @@ class VTKConan(ConanFile):
             "vtkViewsInfovis-%s" % self.short_version + LIB_POSTFIX,
             "vtkzlib-%s" % self.short_version + LIB_POSTFIX
         ]
-        if self.options.qt:
+        if self.options.qt or self.options.system_qt:
             libs.append("vtkGUISupportQt-%s" % self.short_version + LIB_POSTFIX)
             libs.append("vtkGUISupportQtSQL-%s" % self.short_version + LIB_POSTFIX)
         if self.options.mpi:
